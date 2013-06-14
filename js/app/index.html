@@ -1,0 +1,64 @@
+<style type="text/css">
+div.piskotnaMiza {
+  background: #F7F7F7;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; 
+  z-index: 9999;
+  color:rgb(117, 117, 117);
+  font-size: .84em;
+  box-shadow: 0 1px 15px rgb(136, 136, 136);
+}
+
+div.piskotnaMiza .gumb {
+  text-decoration: none;
+  background: #DD4814;
+  padding: 10px 0;
+  width: 150px;
+  text-align: center;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  float:right;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+div.piskotnaMiza .gumb:hover {
+  background: rgb(142, 72, 194);
+}
+div.piskotnaMiza ul{
+  width: 50%;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+}
+div.piskotnaMiza ul > li{
+  float: left;
+  display: inline;
+}
+div.piskotnaMiza h2, div.piskotnaMiza p{
+  display: inline;
+}
+</style>
+
+<div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <!-- build:js scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild -->
+  <div ng-show="isVisible" class="piskotnaMiza" ng-controller="NastaviPiskotke">
+    <ul>
+      <li><h2>Piškotki{{test}}</h2></li>
+      <li><p>Spletno mesto uporablja piškotke za zagotavljanje boljše uporabniške izkušnje in spremljanje statistike obiska. Z izborom opcije "se strinjam" se strinjate z uporabo piškotkov na tem spletnem mestu.</p></li>
+      <a ng-click="strinjamse()" class="gumb">Se strinjam</a>
+      <a href="#" class="gumb">Nastavitve</a>
+    </ul>
+    <script>angular.bootstrap(document, ['nastavipiskotkeApp']);</script>
+  </div>
+</div>
+
