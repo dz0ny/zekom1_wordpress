@@ -11,13 +11,13 @@ class ZEKOM_Nastavitve
   function __construct()
   {
     add_action( 'admin_init', array( &$this, 'nastavitve_zekom_admin' ) );
-    add_filter( 'pre_update_option_zekom_gaid', 'delete_cache', 10, 2 ); 
-    add_filter( 'pre_update_option_zekom_opis', 'delete_cache', 10, 2 ); 
-    add_filter( 'pre_update_option_zekom_url', 'delete_cache', 10, 2 ); 
-    add_filter( 'pre_update_option_zekom_bg', 'delete_cache', 10, 2 ); 
-    add_filter( 'pre_update_option_zekom_fg', 'delete_cache', 10, 2 ); 
-    add_filter( 'pre_update_option_zekom_gb', 'delete_cache', 10, 2 ); 
-    add_filter( 'pre_update_option_zekom_gbh', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_gaid', array( &$this, 'delete_cache'), 10, 2 );
+    add_filter( 'pre_update_option_zekom_opis', array( &$this, 'delete_cache'), 10, 2 );
+    add_filter( 'pre_update_option_zekom_url', array( &$this, 'delete_cache'), 10, 2 );
+    add_filter( 'pre_update_option_zekom_bg', array( &$this, 'delete_cache'), 10, 2 );
+    add_filter( 'pre_update_option_zekom_fg', array( &$this, 'delete_cache'), 10, 2 );
+    add_filter( 'pre_update_option_zekom_gb', array( &$this, 'delete_cache'), 10, 2 );
+    add_filter( 'pre_update_option_zekom_gbh', array( &$this, 'delete_cache'), 10, 2 );
   }
 
   public function delete_cache($newvalue, $oldvalue )
