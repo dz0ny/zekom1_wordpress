@@ -72,7 +72,7 @@ EOD;
       $json = "{clientId: new Fingerprint().get()}";
       echo $this->_construct_ga_code($gaid, $json);
     }else{
-      $json = "{'storage': none, clientId: new Fingerprint().get()}";
+      $json = "{'storage': 'none', clientId: new Fingerprint().get()}";
       echo $this->_construct_ga_code($gaid, $json);
     }
 
