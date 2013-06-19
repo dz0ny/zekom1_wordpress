@@ -11,9 +11,22 @@ class ZEKOM_Nastavitve
   function __construct()
   {
     add_action( 'admin_init', array( &$this, 'nastavitve_zekom_admin' ) );
+    add_filter( 'pre_update_option_zekom_gaid', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_opis', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_url', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_bg', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_fg', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_gb', 'delete_cache', 10, 2 ); 
+    add_filter( 'pre_update_option_zekom_gbh', 'delete_cache', 10, 2 ); 
   }
 
-
+  public function delete_cache($newvalue, $oldvalue )
+  {
+    if ($newvalue != $oldvalue ) {
+      delete_transient( "cookie_law_cache" );
+    }
+    return $newvalue;
+  }
   public function nastavitve_zekom_admin() {
 
     wp_enqueue_style( 'wp-color-picker' );
@@ -32,13 +45,13 @@ class ZEKOM_Nastavitve
       array("id"=>"zekom_gaid") );
     register_setting( 'reading', 'zekom_gaid' );
 
-    add_settings_field( 'zekom_prst',
-      'Za naključje uporabi uporabnikov prstni odtis',
+    add_settings_field( 'zekom_dnt',
+      'Upoštevaj DNT',
       array( &$this, 'nastavi_chx' ),
       'reading',
       'zekom_nastavitve',
-      array("id"=>"zekom_prst") );
-    register_setting( 'reading', 'zekom_prst' );
+      array("id"=>"zekom_dnt") );
+    register_setting( 'reading', 'zekom_dnt' );
 
     add_settings_field( 'zekom_opis',
       'Uvodni tekst, ki se prikaže uporabniku ob vpisu podatkov',
@@ -95,7 +108,7 @@ class ZEKOM_Nastavitve
   }
   function nastavi_chx($a) {
     ?>
-    <input name="<?php echo $a["id"]; ?>" id="<?php echo $a["id"]; ?>" type="checkbox" value="<?php echo get_option( $a["id"] ); ?>" class="code" ' . checked( 1, get_option( $a["id"] ), true ) . ' />
+    <input name="<?php echo $a["id"]; ?>" id="<?php echo $a["id"]; ?>" type="checkbox" value="<?php echo get_option( $a["id"] ); ?>" class="code" <?php echo checked( 1, get_option( $a["id"] ), true )?>  />
     <?php 
    }
   function nastavi_text($a) {

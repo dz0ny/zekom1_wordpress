@@ -44,11 +44,15 @@ class ZekomTest extends \Codeception\TestCase\Test
         $_SERVER['HTTP_DNT'] = 1 ;
         $this->assertTrue( $this->plugin->_is_dnt() );
         unset( $_SERVER['HTTP_DNT'] );
-    }
+    }   
 
-    public function testCeNezaznamDNT() {
+    public function testCeZaznamDNTinNePrikazemJS() {
+        $_SERVER['HTTP_DNT'] = 1 ;
+        ob_start();
+        $this->plugin->vstavi_kodo();
+        $code = ob_get_clean();
+        $this->assertTrue( empty($code) );
         unset( $_SERVER['HTTP_DNT'] );
-        $this->assertFalse( $this->plugin->_is_dnt() );
     }
 
     public function testCeOpcijaVsebujeImeClassa() {
@@ -65,22 +69,24 @@ class ZekomTest extends \Codeception\TestCase\Test
         $this->assertEquals( "565586632079043445", $this->plugin->_hashme() );
     }
 
-    public function testPravilenAnonID() {
-        $this->assertEquals( "565582976131091899", $this->plugin->_generate_fingerprint() );
+    public function testPravilenPrstniOdtisCeJeProxy() {
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = "HTTP_X_FORWARDED_FOR" ;
+        $this->assertEquals( "565586597059562068", $this->plugin->_generate_fingerprint() );
+        unset($_SERVER['HTTP_X_FORWARDED_FOR']);
     }
 
-    public function testPravilenPrstID() {
-        update_option( "zekom_prst", true);
-        $this->assertEquals( "565586265826893684", $this->plugin->_generate_fingerprint() );
-        _reset_wp();
+    public function testPravilenPrstniOdtisCeJeProxy2() {
+        $_SERVER['HTTP_CLIENT_IP'] = "HTTP_CLIENT_IP" ;
+        $this->assertEquals( "565582961576496056", $this->plugin->_generate_fingerprint() );
+        unset($_SERVER['HTTP_CLIENT_IP']);
     }
-    public function testPravilenPrstIDPrisiljen() {
-        update_option( "zekom_prst", false);
-        $this->assertEquals( "565586265826893684", $this->plugin->_generate_fingerprint(true) );
-        _reset_wp();
+
+    public function testPravilenPrstniOdtis() {
+        $this->assertEquals( "565907946354887962", $this->plugin->_generate_fingerprint() );
     }
+
     public function testUstvariGAKodo() {
-        $this->assertContains( "GA565582976131091899('create', 'UA-123456', {'storage': 'none'});", $this->plugin->_construct_ga_code( "UA-123456" ) );
+        $this->assertContains( "('create', 'UA-123456', {'storage': 'none'});", $this->plugin->_construct_ga_code( "UA-123456" ) );
     }
 
     public function testyoutubeNocokie() {
@@ -117,7 +123,7 @@ class ZekomTest extends \Codeception\TestCase\Test
         $this->plugin->vstavi_kodo();
         $code = ob_get_clean();
         $this->assertContains( "@GAID",  $code );
-        $this->assertContains( '"storage":"none"',  $code );
+        $this->assertContains( "'storage': none",  $code );
         $this->assertContains( 'Nastavitve',  $code );
         $this->assertContains( 'Se strinjam',  $code );
     }
@@ -129,7 +135,7 @@ class ZekomTest extends \Codeception\TestCase\Test
         $this->plugin->vstavi_kodo();
         $code = ob_get_clean();
         $this->assertContains( "@GAID",  $code );
-        $this->assertNotContains( '"storage":"none"',  $code );
+        $this->assertNotContains( "'storage': none",  $code );
         $this->assertNotContains( 'Nastavitve',  $code );
         $this->assertNotContains( 'Se strinjam',  $code );
     }

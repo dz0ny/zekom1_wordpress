@@ -65,6 +65,7 @@ function _reset_wp() {
 		'wp_settings_sections' => array(), //fake
 		'wp_settings_fields' => array(), //fake
 		'wp_settings' => array(), //fake
+		'wp_transient' => array(), //fake
 	);
 
 	wp_cache_init();

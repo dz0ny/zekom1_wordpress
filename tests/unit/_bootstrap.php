@@ -10,4 +10,4 @@ $_SERVER['HTTP_ACCEPT_ENCODING']  = "gzip,deflate,sdch";
 $_SERVER['HTTP_USER_AGENT']       = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.36 Safari/537.36";
 $_SERVER['REMOTE_ADDR']           = "123.123.123.123";
 $_SERVER['REMOTE_PORT']           = "34567";
-$_SERVER['SERVER_NAME']           = "www.ip-rs.si";
+$_SERVER['HTTP_HOST']           = "www.ip-rs.si";

@@ -7,3 +7,6 @@
 
 ## Nastavitve v administraciji
 ![](http://screencloud.net//img/screenshots/79a9e0d8f2deebef71590e10423a8330.png)
+
+## Pokritost z testi
+![](http://screencloud.net//img/screenshots/13c0efff51eed7fb5ab15081a3631e2f.png)
