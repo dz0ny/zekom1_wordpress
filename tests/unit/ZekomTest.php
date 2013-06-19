@@ -123,7 +123,7 @@ class ZekomTest extends \Codeception\TestCase\Test
         $this->plugin->vstavi_kodo();
         $code = ob_get_clean();
         $this->assertContains( "@GAID",  $code );
-        $this->assertContains( "'storage': none",  $code );
+        $this->assertContains( "'storage': 'none'",  $code );
         $this->assertContains( 'Nastavitve',  $code );
         $this->assertContains( 'Se strinjam',  $code );
     }
@@ -135,7 +135,7 @@ class ZekomTest extends \Codeception\TestCase\Test
         $this->plugin->vstavi_kodo();
         $code = ob_get_clean();
         $this->assertContains( "@GAID",  $code );
-        $this->assertNotContains( "'storage': none",  $code );
+        $this->assertNotContains( "'storage': 'none'",  $code );
         $this->assertNotContains( 'Nastavitve',  $code );
         $this->assertNotContains( 'Se strinjam',  $code );
     }

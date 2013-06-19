@@ -69,10 +69,10 @@ EOD;
       return;
     }
     if (isset($_COOKIE["uporabnik_privolil"]) && $_COOKIE["uporabnik_privolil"] == "da") {
-      $json = "{clientId: new Fingerprint().get()}";
+      $json = "{'clientId': new Fingerprint().get()}";
       echo $this->_construct_ga_code($gaid, $json);
     }else{
-      $json = "{'storage': 'none', clientId: new Fingerprint().get()}";
+      $json = "{'storage': 'none', 'clientId': new Fingerprint().get()}";
       echo $this->_construct_ga_code($gaid, $json);
     }
 
