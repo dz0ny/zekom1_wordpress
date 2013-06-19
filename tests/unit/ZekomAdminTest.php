@@ -20,7 +20,6 @@ class ZekomAdminTest extends \Codeception\TestCase\Test
         _reset_wp();
         global $wp_test_expectations;
         $this->plugin = new ZEKOM_Nastavitve;
-
     }
 
     protected function _after() {
@@ -38,14 +37,17 @@ class ZekomAdminTest extends \Codeception\TestCase\Test
         $this->assertTrue( class_exists( "ZEKOM_Nastavitve" ) );
         $this->assertTrue( isset( $wp_test_expectations["actions"]["admin_init"][1] ) );
         $this->assertTrue( $wp_test_expectations["actions"]["admin_init"][1] == "nastavitve_zekom_admin" );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_gaid"]) );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_opis"]) );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_url"]) );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_bg"]) );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_fg"]) );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_gb"]) );
-        $this->assertTrue( isset($wp_test_expectations["filters"]["pre_update_option_zekom_gbh"]) );
-        _reset_wp();
+    }
+
+    public function testCeSoFiltriZaCiscenjeCache() {
+        global $wp_test_expectations;
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_gaid"][10]["callback"][1] == "delete_cache" );
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_opis"][10]["callback"][1] == "delete_cache" );
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_url"][10]["callback"][1] == "delete_cache" );
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_bg"][10]["callback"][1] == "delete_cache" );
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_fg"][10]["callback"][1] == "delete_cache" );
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_gb"][10]["callback"][1] == "delete_cache" );
+        $this->assertTrue( $wp_test_expectations["filters"]["pre_update_option_zekom_gbh"][10]["callback"][1] == "delete_cache" );
     }
 
     public function testCeSoNastavitve() {
